@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Onboarding - Tech Magify</title>
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="styles-improved.css" />
+</head>
+<body>
+  <div class="onboarding-shell">
+    <div class="onboarding-card">
+      <header class="onboarding-header">
+        <div class="brand-mark">
+          <div class="brand-icon">
+            <span>TM</span>
+          </div>
+          <div class="brand-text">
+            <h1>Tech Magify</h1>
+            <small>Customer Onboarding · Secure KYC &amp; Investments</small>
+          </div>
+        </div>
+        <div class="d-flex flex-column align-items-end gap-1">
+          <div class="small text-end">
+            <span class="small-tag">Welcome <strong>Deepak Sharma</strong> | <a href="#" class="text-decoration-none">Logout</a></span>
+          </div>
+          <span class="small-tag">Step <span id="stepIndexLabel">1</span> of <span id="stepCountLabel">8</span></span>
+        </div>
+      </header>
+
+      <main class="onboarding-body">
+        <form id="onboardingForm" novalidate>
+          <!-- Stepper with arrows -->
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle step-scroll-btn" id="stepScrollLeft">
+              &larr;
+            </button>
+            <div class="stepper flex-grow-1" id="stepper">
+              <button type="button" class="step-pill active" data-step="1">
+                <span class="index">1</span>
+                <span class="step-pill-label">Sign Up</span>
+              </button>
+              <button type="button" class="step-pill" data-step="2">
+                <span class="index">2</span>
+                <span class="step-pill-label">Declarations</span>
+              </button>
+              <button type="button" class="step-pill" data-step="3">
+                <span class="index">3</span>
+                <span class="step-pill-label">Account</span>
+              </button>
+              <button type="button" class="step-pill" data-step="4">
+                <span class="index">4</span>
+                <span class="step-pill-label">Application</span>
+              </button>
+              <button type="button" class="step-pill" data-step="5">
+                <span class="index">5</span>
+                <span class="step-pill-label">Nominee</span>
+              </button>
+              <button type="button" class="step-pill" data-step="6">
+                <span class="index">6</span>
+                <span class="step-pill-label">Risk Profile</span>
+              </button>
+              <button type="button" class="step-pill" data-step="7">
+                <span class="index">7</span>
+                <span class="step-pill-label">Bank &amp; KYC Docs</span>
+              </button>
+              <button type="button" class="step-pill" data-step="8">
+                <span class="index">8</span>
+                <span class="step-pill-label">Review &amp; Submit</span>
+              </button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle step-scroll-btn" id="stepScrollRight">
+              &rarr;
+            </button>
+          </div>
+
+          <!-- Step 1: Sign Up & Verification -->
+          <section class="step-panel active" data-step="1">
+            <div class="panel-card">
+              <div class="panel-title">Sign Up &amp; Verify Contact</div>
+              <div class="panel-subtitle">
+                Create your Tech Magify profile using verified mobile and email.
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="signupMobile" class="form-label">Mobile Number</label>
+                  <div class="input-group">
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="signupMobile"
+                      placeholder="10-digit mobile number"
+                      minlength="10"
+                      maxlength="10"
+                      required
+                    />
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill ms-2" id="btnSendMobileOtp">
+                      Send OTP
+                    </button>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 mt-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="mobileOtp"
+                      placeholder="Enter mobile OTP"
+                      minlength="4"
+                      maxlength="6"
+                      required
+                    />
+                    <button type="button" class="btn btn-outline-success btn-sm rounded-pill" id="btnVerifyMobileOtp">
+                      Verify
+                    </button>
+                  </div>
+                  <div class="form-helper">We’ll send a one-time code to your mobile.</div>
+                  <div class="form-error" data-for="signupMobile">Enter a valid mobile and OTP.</div>
+                  <div class="form-error" data-for="mobileOtp">Enter the OTP received on mobile.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="signupEmail" class="form-label">Email Address</label>
+                  <div class="input-group">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="signupEmail"
+                      placeholder="yourname@example.com"
+                      required
+                    />
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill ms-2" id="btnSendEmailOtp">
+                      Send OTP
+                    </button>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 mt-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emailOtp"
+                      placeholder="Enter email OTP"
+                      minlength="4"
+                      maxlength="6"
+                      required
+                    />
+                    <button type="button" class="btn btn-outline-success btn-sm rounded-pill" id="btnVerifyEmailOtp">
+                      Verify
+                    </button>
+                  </div>
+                  <div class="form-helper">We’ll send a verification code to your email.</div>
+                  <div class="form-error" data-for="signupEmail">Enter a valid email and OTP.</div>
+                  <div class="form-error" data-for="emailOtp">Enter the OTP received on email.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label for="signupPassword" class="form-label">Create Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="signupPassword"
+                    placeholder="Minimum 8 characters"
+                    minlength="8"
+                    required
+                  />
+                  <div class="form-error" data-for="signupPassword">Password must be at least 8 characters.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 2: Declarations & Consents -->
+          <section class="step-panel" data-step="2">
+            <div class="panel-card">
+              <div class="panel-title">Declarations &amp; Consents</div>
+              <div class="panel-subtitle">
+                Review and confirm your consent for KYC data fetching and regulatory declarations.
+              </div>
+
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="1" id="decFetchKyc" required />
+                <label class="form-check-label" for="decFetchKyc">
+                  I/we provide consent for fetching KYC information (PAN, Date of Birth, address, contact, etc.) from KRA databases.
+                </label>
+                <div class="form-error" data-for="decFetchKyc">Consent is required to proceed.</div>
+              </div>
+
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="1" id="decAadhaarOptional" required />
+                <label class="form-check-label" for="decAadhaarOptional">
+                  I/we understand that submission of Aadhaar card for proof of address/identity is voluntary.
+                </label>
+                <div class="form-error" data-for="decAadhaarOptional">Please confirm your understanding.</div>
+              </div>
+
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="1" id="decEKyc" required />
+                <label class="form-check-label" for="decEKyc">
+                  I/we consent to e-KYC authentication using my/our Aadhaar number, where provided.
+                </label>
+                <div class="form-error" data-for="decEKyc">Please provide your consent.</div>
+              </div>
+
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="1" id="decTruthful" required />
+                <label class="form-check-label" for="decTruthful">
+                  I/we declare that details furnished are correct and complete to the best of my/our knowledge.
+                </label>
+                <div class="form-error" data-for="decTruthful">This declaration is mandatory.</div>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="1" id="decSharing" required />
+                <label class="form-check-label" for="decSharing">
+                  I/we consent to sharing of furnished details with custodians and service providers as per regulations.
+                </label>
+                <div class="form-error" data-for="decSharing">Please confirm consent for data sharing.</div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="decCaptcha" class="form-label">Captcha</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="decCaptcha"
+                    placeholder="Enter shown code"
+                    required
+                  />
+                  <div class="form-helper">
+                    Example only · integrate real captcha in production.
+                  </div>
+                  <div class="form-error" data-for="decCaptcha">Captcha is required.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 3: Account Details -->
+          <section class="step-panel" data-step="3">
+            <div class="panel-card">
+              <div class="panel-title">Account Details</div>
+              <div class="panel-subtitle">
+                Configure your investment account type, fee preferences and correspondence address.
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="accountType" class="form-label">Account Type</label>
+                  <select class="form-select" id="accountType" required>
+                    <option value="">Select account type</option>
+                    <option>Resident Individual (single)</option>
+                    <option>Resident Individual (joint)</option>
+                    <option>Non-Resident Indian (NRI)</option>
+                    <option>HUF</option>
+                    <option>Company / LLP</option>
+                  </select>
+                  <div class="form-error" data-for="accountType">Please select account type.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="portfolioName" class="form-label">Portfolio / Strategy Name</label>
+                  <select class="form-select" id="portfolioName" required>
+                    <option value="">Select strategy</option>
+                    <option>Consistent Compounders PMS</option>
+                    <option>Little Champs PMS</option>
+                    <option>Kings of Capital PMS</option>
+                    <option>Special Situations Fund</option>
+                  </select>
+                  <div class="form-error" data-for="portfolioName">Please select a portfolio.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label for="investmentType" class="form-label">Investment Type</label>
+                  <select class="form-select" id="investmentType" required>
+                    <option value="">Select investment type</option>
+                    <option>Lump-sum</option>
+                    <option>Systematic Investment (SIP)</option>
+                    <option>Combination (Lump-sum + SIP)</option>
+                  </select>
+                  <div class="form-error" data-for="investmentType">Please select investment type.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="proposedInvestment" class="form-label">Proposed Quantum of Investment (₹)</label>
+                  <input
+                    type="number"
+                    min="100000"
+                    step="10000"
+                    class="form-control"
+                    id="proposedInvestment"
+                    placeholder="e.g. 2500000"
+                    required
+                  />
+                  <div class="form-helper">Minimum sample amount: ₹1,00,000</div>
+                  <div class="form-error" data-for="proposedInvestment">Enter a valid amount.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label for="feeType" class="form-label">Fee Type</label>
+                  <select class="form-select" id="feeType" required>
+                    <option value="">Select fee structure</option>
+                    <option>Fixed Fees Only</option>
+                    <option>Fixed + Performance Fee</option>
+                    <option>Performance Fee Only</option>
+                  </select>
+                  <div class="form-error" data-for="feeType">Please select fee type.</div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="panel-title mb-2">Signature Address</div>
+              <div class="panel-subtitle">
+                This is where physical forms (if any) will be sent for signatures.
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="sigAddress" class="form-label">Address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="sigAddress"
+                    placeholder="Enter correspondence address"
+                    required
+                  />
+                  <div class="form-error" data-for="sigAddress">Address is required.</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="sigContactName" class="form-label">Contact Person</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="sigContactName"
+                    placeholder="Contact person name"
+                    required
+                  />
+                  <div class="form-error" data-for="sigContactName">Contact person is required.</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="sigContactNumber" class="form-label">Contact Number</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="sigContactNumber"
+                    placeholder="10-digit number"
+                    minlength="10"
+                    maxlength="10"
+                    required
+                  />
+                  <div class="form-error" data-for="sigContactNumber">Valid contact number required.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-4">
+                  <label for="accountHoldersCount" class="form-label">No. of Account Holders</label>
+                  <select class="form-select" id="accountHoldersCount" required>
+                    <option value="">Select</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <div class="form-error" data-for="accountHoldersCount">Please select number of holders.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 4: Application Details (per holder with PAN + KRA) -->
+          <section class="step-panel" data-step="4">
+            <div class="panel-card">
+              <div class="panel-title">Application Details</div>
+              <div class="panel-subtitle">
+                Enter KRA, PAN and regulatory details for each account holder.
+              </div>
+
+              <div id="holdersContainer"></div>
+            </div>
+          </section>
+
+          <!-- Step 5: Nominee Details -->
+          <section class="step-panel" data-step="5">
+            <div class="panel-card">
+              <div class="panel-title">Nominee Details</div>
+              <div class="panel-subtitle">
+                Add nominee(s) to receive benefits in case of any unforeseen event.
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="numNominees" class="form-label">Number of Nominees</label>
+                  <select class="form-select" id="numNominees" required>
+                    <option value="">Select</option>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <div class="form-error" data-for="numNominees">Please select number of nominees.</div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div id="nomineeContainer"></div>
+            </div>
+          </section>
+
+          <!-- Step 6: Risk Profile & Investment Restrictions -->
+          <section class="step-panel" data-step="6">
+            <div class="panel-card">
+              <div class="panel-title">Risk Profile &amp; Investment Restrictions</div>
+              <div class="panel-subtitle">
+                Help us understand your risk appetite and investment preferences.
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-block">Investment Experience regarding Securities</label>
+                <div class="d-flex flex-wrap gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="invExperience" id="inv0to3" value="0-3" required />
+                    <label class="form-check-label" for="inv0to3">0–3 Years</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="invExperience" id="inv4to7" value="4-7" />
+                    <label class="form-check-label" for="inv4to7">4–7 Years</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="invExperience" id="inv7plus" value="7+" />
+                    <label class="form-check-label" for="inv7plus">7+ Years</label>
+                  </div>
+                </div>
+                <div class="form-error" data-for="invExperience">Please select your investment experience.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-block">
+                  How would you react if well-diversified portfolios fell by 20%?
+                </label>
+                <div class="d-flex flex-wrap gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="drawdownReaction" id="drAccumulate" value="Accumulate" required />
+                    <label class="form-check-label" for="drAccumulate">Accumulate</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="drawdownReaction" id="drHold" value="Hold" />
+                    <label class="form-check-label" for="drHold">Hold</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="drawdownReaction" id="drReduce" value="Reduce" />
+                    <label class="form-check-label" for="drReduce">Reduce</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="drawdownReaction" id="drExit" value="Exit" />
+                    <label class="form-check-label" for="drExit">Exit Position</label>
+                  </div>
+                </div>
+                <div class="form-error" data-for="drawdownReaction">Please specify your reaction.</div>
+              </div>
+
+              <div class="row g-3 mb-2">
+                <div class="col-md-4">
+                  <label class="form-label d-block">Investment Style</label>
+                  <div class="d-flex gap-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invStyle" id="styleActive" value="Active" required />
+                      <label class="form-check-label" for="styleActive">Active</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invStyle" id="stylePassive" value="Passive" />
+                      <label class="form-check-label" for="stylePassive">Passive</label>
+                    </div>
+                  </div>
+                  <div class="form-error" data-for="invStyle">Please select investment style.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label d-block">Investment Objective</label>
+                  <div class="d-flex flex-column gap-1">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invObjective" id="objCapApp" value="Capital Appreciation" required />
+                      <label class="form-check-label" for="objCapApp">Capital Appreciation</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invObjective" id="objRegularIncome" value="Regular Income" />
+                      <label class="form-check-label" for="objRegularIncome">Regular Income</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invObjective" id="objBoth" value="Capital Appreciation & Regular Income" />
+                      <label class="form-check-label" for="objBoth">Capital Appreciation &amp; Regular Income</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="invObjective" id="objPreservation" value="Capital Preservation" />
+                      <label class="form-check-label" for="objPreservation">Capital Preservation</label>
+                    </div>
+                  </div>
+                  <div class="form-error" data-for="invObjective">Please select objective.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label d-block">Risk Tolerance</label>
+                  <div class="d-flex gap-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="riskTolerance" id="riskLow" value="Low" required />
+                      <label class="form-check-label" for="riskLow">Low</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="riskTolerance" id="riskMedium" value="Medium" />
+                      <label class="form-check-label" for="riskMedium">Medium</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="riskTolerance" id="riskHigh" value="High" />
+                      <label class="form-check-label" for="riskHigh">High</label>
+                    </div>
+                  </div>
+                  <div class="form-error" data-for="riskTolerance">Please select risk tolerance.</div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="panel-title mb-2">Negative Securities</div>
+              <p class="small-tag mb-2">
+                These restrictions shall apply to all existing investment approaches/products where the first applicant is the same.
+              </p>
+              <label class="form-label d-block">Would you like to declare interest in various corporate bodies?</label>
+              <div class="d-flex gap-3 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="negativeSecurities" id="negYes" value="Yes" />
+                  <label class="form-check-label" for="negYes">Yes</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="negativeSecurities" id="negNo" value="No" checked />
+                  <label class="form-check-label" for="negNo">No</label>
+                </div>
+              </div>
+              <textarea
+                class="form-control"
+                id="negSecuritiesDetails"
+                rows="2"
+                placeholder="If yes, please specify instruments / sectors / companies to be excluded."
+              ></textarea>
+            </div>
+          </section>
+
+          <!-- Step 7: Bank, Photos, Wet Signature & KYC Docs -->
+          <section class="step-panel" data-step="7">
+            <div class="panel-card">
+              <div class="panel-title">Bank Details &amp; Document Uploads</div>
+              <div class="panel-subtitle">
+                Add bank account for payouts and upload regulatory documents &amp; signatures.
+              </div>
+
+              <div class="panel-title mb-2">Bank Account Registration</div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="bankName" class="form-label">Bank Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="bankName"
+                    placeholder="Enter bank name"
+                    required
+                  />
+                  <div class="form-error" data-for="bankName">Bank name required.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="ifsc" class="form-label">IFSC Code</label>
+                  <input
+                    type="text"
+                    class="form-control text-uppercase"
+                    id="ifsc"
+                    placeholder="e.g. HDFC0001234"
+                    required
+                  />
+                  <div class="form-error" data-for="ifsc">Enter a valid IFSC code.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="branch" class="form-label">Branch</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="branch"
+                    placeholder="Branch name"
+                    required
+                  />
+                  <div class="form-error" data-for="branch">Branch required.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-4">
+                  <label for="accountNumber" class="form-label">Account Number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="accountNumber"
+                    placeholder="Bank account number"
+                    required
+                  />
+                  <div class="form-error" data-for="accountNumber">Account number required.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label d-block">Account Type</label>
+                  <div class="d-flex gap-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="bankAccountType" id="bankSaving" value="Saving" required />
+                      <label class="form-check-label" for="bankSaving">Saving</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="bankAccountType" id="bankCurrent" value="Current" />
+                      <label class="form-check-label" for="bankCurrent">Current</label>
+                    </div>
+                  </div>
+                  <div class="form-error" data-for="bankAccountType">Please select account type.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="bankHoldersCount" class="form-label">No. of Holders in Bank Account</label>
+                  <select class="form-select" id="bankHoldersCount" required>
+                    <option value="">Select</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <div class="form-error" data-for="bankHoldersCount">Please select number of holders.</div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="panel-title mb-2">Photo Liveness (Sample)</div>
+              <p class="small-tag mb-2">
+                Allow access to your camera to capture two live photos. This is a sample implementation.
+              </p>
+              <div class="row g-3 align-items-stretch">
+                <div class="col-md-6">
+                  <div class="camera-frame border border-dashed rounded-3 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                    <span class="small-tag mb-2">Live Camera</span>
+                    <video id="liveVideo" autoplay playsinline style="max-width: 100%; border-radius: 12px; display: none;"></video>
+                    <canvas id="liveCanvas" style="display:none;"></canvas>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <button type="button" class="btn btn-outline-primary rounded-pill px-3 btn-sm" id="btnStartCamera">
+                        Start Camera
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <div class="camera-frame border border-dashed rounded-3 p-3">
+                        <span class="small-tag mb-2 d-block">Photo 1</span>
+                        <img id="photo1Preview" alt="Photo 1 preview" style="max-width: 100%; border-radius: 12px; display:none; margin-bottom:8px;" />
+                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill" id="btnCapturePhoto1" disabled>
+                          Capture Photo 1
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="camera-frame border border-dashed rounded-3 p-3">
+                        <span class="small-tag mb-2 d-block">Photo 2</span>
+                        <img id="photo2Preview" alt="Photo 2 preview" style="max-width: 100%; border-radius: 12px; display:none; margin-bottom:8px;" />
+                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill" id="btnCapturePhoto2" disabled>
+                          Capture Photo 2
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="panel-title mb-2">Wet Signature</div>
+              <p class="small-tag mb-2">
+                Upload a horizontal specimen signature as per PAN, captured on plain white paper.
+              </p>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <input class="form-control" type="file" id="wetSignature" accept="image/*" required />
+                  <div class="form-error" data-for="wetSignature">Please upload your signature specimen.</div>
+                </div>
+              </div>
+
+              <hr class="section-divider" />
+
+              <div class="panel-title mb-2">Address &amp; Identity Proof</div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="residenceProofType" class="form-label">Residence Address Proof Type</label>
+                  <select class="form-select" id="residenceProofType" required>
+                    <option value="">Select document</option>
+                    <option>Aadhaar Card</option>
+                    <option>Passport</option>
+                    <option>Driving Licence</option>
+                    <option>Electricity Bill</option>
+                    <option>Bank Statement</option>
+                  </select>
+                  <div class="form-error" data-for="residenceProofType">Please select a proof type.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Residence Proof Upload</label>
+                  <input class="form-control" type="file" id="residenceProofFile" accept="image/*,application/pdf" required />
+                  <div class="form-error" data-for="residenceProofFile">Please upload residence proof.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Cancelled Cheque (Optional)</label>
+                  <input class="form-control" type="file" id="bankProofFile" accept="image/*,application/pdf" />
+                  <div class="form-helper mt-1">Recommended for faster bank verification, but optional.</div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-4">
+                  <label for="idProofNumber" class="form-label">Proof of Identity Document Number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idProofNumber"
+                    placeholder="Document number"
+                    required
+                  />
+                  <div class="form-error" data-for="idProofNumber">Document number required.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="idProofExpiry" class="form-label">Proof of Identity Document Expiry</label>
+                  <input type="date" class="form-control" id="idProofExpiry" required />
+                  <div class="form-error" data-for="idProofExpiry">Please select expiry date.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="idProofName" class="form-label">Name as per ID Proof</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idProofName"
+                    placeholder="As printed on ID"
+                    required
+                  />
+                  <div class="form-error" data-for="idProofName">Name as per ID is required.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 8: Review & Submit -->
+          <section class="step-panel" data-step="8">
+            <div class="panel-card">
+              <div class="panel-title">Review &amp; Submit</div>
+              <div class="panel-subtitle">
+                Review a structured, form-style summary of your entries before submitting your onboarding request.
+              </div>
+
+              <div id="reviewSummary" class="mt-2" style="font-size: 13px; color: #111827;">
+                Summary will appear here once you reach this step.
+              </div>
+            </div>
+          </section>
+
+          <!-- Footer Navigation -->
+          <footer class="onboarding-footer">
+            <button type="button" class="btn-ghost" id="btnPrev" disabled>
+              &larr; Previous
+            </button>
+
+            <div class="progress-rail me-1">
+              <div class="progress-bar-inner" id="progressBar"></div>
+            </div>
+
+            <button type="submit" class="btn-primary-modern" id="btnNext">
+              Next Step
+            </button>
+          </footer>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- App logic -->
+  <script src="app.js"></script>
+</body>
+</html>
+
